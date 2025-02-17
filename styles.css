@@ -1,0 +1,262 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #121212;
+    padding: 0px 20px;
+    width: fit-content;    /* width: 50% ki jagah */
+    min-width: 50%;       /* minimum width set ki hai */
+    max-width: 90%;  
+    height: 2rem;
+    white-space: nowrap;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    transition: transform 0.6s cubic-bezier(0.66, 0, 0.34, 1);  /* smooth transition add ki */
+}
+
+.navbar.hidden {
+    transform: translate(-50%, -100%);  /* navbar ko uper hide karne ke liye */
+}
+
+.logo {
+    color: white;
+    font-size: 24px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    width: 100%; /* Ensure nav-links take full width */
+    justify-content: space-between; /* Space out links evenly */
+}
+
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    height: 3px;
+    width: 25px;
+    background-color: white;
+    margin: 4px 0;
+}
+
+.hero {
+    background-image: url('your-image.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 200vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-content h1 {
+    color: white;
+    font-size: 60px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-menu {
+  
+    gap: 1rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #121212;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: scroll;
+    max-height: 0;
+    width: 100%;
+    transition: max-height 0.8s cubic-bezier(0.66, 0, 0.34, 1), visibility 0.8s;
+    z-index: 999;
+    visibility: hidden;
+    display: grid;
+    align-items: start;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.dropdown-menu::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.dropdown-menu::-webkit-scrollbar-track {
+    background: #333333;
+}
+
+/* Handle */
+.dropdown-menu::-webkit-scrollbar-thumb {
+ background: #A9FF5F;
+}
+
+.dropdown-links-wrapper{
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+    width: fit-content;
+    padding: 1rem 0.5rem ;
+    
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown-menu.active {
+    max-height: 300px;
+    visibility: visible;
+}
+
+/* Existing dropdown styles */
+.dropdown > a {
+    position: relative;  /* Icon positioning ke liye */
+    padding-right: 20px; /* Icon ke liye space */
+}
+
+/* Dropdown icon ke liye pseudo-element */
+.dropdown > a::after {
+    content: "▼";
+    font-size: 0.7em;
+    margin-left: 8px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s cubic-bezier(0.66, 0, 0.34, 1);
+}
+
+/* Active state mein rotation */
+.dropdown:hover > a::after,
+.dropdown.active > a::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+
+/* WAPIS ADD KARO HEADING STYLES */
+.dropdown-heading {
+    color: white;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 10px;  /* Heading aur links ke beech space ke liye */
+}
+
+/* REMOVE KARO SIRF WO STYLES JO ICON SE RELATED THAY */
+/* (position aur padding-right nahi add karna) */
+
+.hamburger {
+  display: none; /* Desktop par hide */
+  background: transparent;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.line {
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: #A9FF5F;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+/* Mobile view show karein */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #121212;
+    padding: 0;
+    margin-top: 0rem;
+    max-height: 0;
+    overflow: scroll;
+    visibility: hidden;
+    transition: max-height 1s cubic-bezier(0.66, 0, 0.34, 1), visibility 1s;
+  }
+
+  .nav-links.active {
+    max-height: 500px;
+    visibility: visible;
+  }
+
+  .nav-links li {
+    padding: 10px 20px;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .dropdown-menu {
+    position: static;
+    white-space: nowrap;
+    display: block;
+  }
+
+  .dropdown-menu.active {
+    display: block;
+    max-height: 500px;
+  }
+  .navbar {
+    padding: 0px 20px;
+    min-width: 75%;     
+  }
+}
+
+/* Active state animations */
+.hamburger.active .line:first-child {
+  transform: rotate(45deg) translate(4px, 0px);
+}
+
+.hamburger.active .line:nth-child(2) {
+  transform: rotate(-45deg) translate(5px, -1px);
+}
+
+/* Hover effect for desktop */
+@media (min-width: 768px) {
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  .dropdown:hover .dropdown-icon {
+    transform: rotate(180deg);
+  }
+}
+
+/* Mobile click handling */
+@media (max-width: 767px) {
+  .dropdown.active .dropdown-content {
+    display: block;
+  }
+  .dropdown.active .dropdown-icon {
+    transform: rotate(180deg);
+  }
+}
+
